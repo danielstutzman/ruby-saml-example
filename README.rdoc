@@ -10,10 +10,10 @@
    * Use the same value for the name and description fields
    * Under the SAML 2.0 tab, set the AssertionConsumerService endpoint to something like: http://localhost:3000/saml/consume
 4. Change app/models/account.rb to be something like:
-   settings.assertion_consumer_service_url = "http://localhost:3000/sessions/complete"
-   settings.issuer = # THE ENTITY ID/NAME YOU ENTERED ABOVE
-   settings.idp_sso_target_url = "https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php"
-   settings.idp_cert_fingerprint = "c9ed4dfb07caf13fc21e0fec1572047eb8a7a4cb"
+   * settings.assertion_consumer_service_url = "http://localhost:3000/sessions/complete"
+   * settings.issuer = # THE ENTITY ID/NAME YOU ENTERED ABOVE
+   * settings.idp_sso_target_url = "https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php"
+   * settings.idp_cert_fingerprint = "c9ed4dfb07caf13fc21e0fec1572047eb8a7a4cb"
 5. Run the Rails server
 
 == How SAML works
@@ -36,9 +36,6 @@
      @assertion_consumer_service_url="http://localhost:3000/sessions/complete">, @document=<UNDEFINED> ... </>,
      @response="PHNhbWxwOlJlc3BvbnNlIHhtbG5zOnNhbWxwPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6cHJvdG9jb2wiIHhtbG5zOnNhbWw9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDphc3NlcnRpb24iIElEPSJ
 
-You might want to try puts-ing response.document; the contents are interesting.
-
 7. The Rails app then redirects to either complete, or fail if not response.is_valid?
 8. The /saml/complete page will show you a NameID like _8345e8a3b8fb03c55071ffa7320b40eda8523faef2 and a link to Logout (logs out from the Rails app not the identity provider)
 9. You can logout for real by going to https://openidp.feide.no/simplesaml/module.php/selfregister/index.php and clicking on Logout
-
